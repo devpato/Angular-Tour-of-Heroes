@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Hero } from "../hero.module";
 import { HEROES } from "../mock-heroes";
 import { HeroService } from "../hero.service";
+import { Observable } from "rxjs/Observable";
 @Component({
   selector: "app-heroes",
   templateUrl: "./heroes.component.html",
@@ -13,7 +14,7 @@ export class HeroesComponent implements OnInit {
     name: "Windstorm"
   };
 
-  heroes: Hero[];
+  heroes$: Observable<any>;
 
   constructor(private heroService: HeroService) {}
 
@@ -27,7 +28,7 @@ export class HeroesComponent implements OnInit {
     this.selectedHero = hero;
   }
 
-  getHeroes(): void {
-    this.heroService.getHeroes().subscribe(heroes => (this.heroes = heroes));
+  getHeroes() {
+    return (this.heroes$ = this.heroService.getHeroes());
   }
 }
