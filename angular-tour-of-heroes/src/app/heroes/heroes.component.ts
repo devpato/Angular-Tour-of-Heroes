@@ -14,12 +14,12 @@ export class HeroesComponent implements OnInit {
     name: "Windstorm"
   };
 
-  heroes$: Observable<any>;
+  heroes$: Observable<Hero>;
 
   constructor(private heroService: HeroService) {}
 
   ngOnInit() {
-    this.getHeroes();
+    this.heroes$ = this.getHeroes();
   }
 
   selectedHero: Hero;
@@ -28,7 +28,7 @@ export class HeroesComponent implements OnInit {
     this.selectedHero = hero;
   }
 
-  getHeroes() {
-    return (this.heroes$ = this.heroService.getHeroes());
+  getHeroes(): Observable<Hero> {
+    return this.heroService.getHeroes();
   }
 }
